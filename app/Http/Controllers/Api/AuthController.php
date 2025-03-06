@@ -10,17 +10,20 @@ use App\Helpers\ApiResponse;
 
 class AuthController
 {
-    public function __construct(protected AuthApiService $authApiService)
+    public function __construct(private AuthApiService $authApiService)
     {
     }
 
     public function register(RegisterRequest $request): JsonResponse
     {
         try {
-            $user = $this->authApiService->register($request->validated());
-            return ApiResponse::data(new UserResource($user));
+            $result = $this->authApiService->register($request->validated());
+            return ApiResponse::data([
+                'user' => new UserResource($result['user']),
+                'token' => $result['token'],
+            ]);
         } catch (\Exception $e) {
-            return ApiResponse::errors($e->getMessage(), $e->getCode());
+            return ApiResponse::errors($e->getMessage());
         }
     }
 

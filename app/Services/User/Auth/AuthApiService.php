@@ -11,14 +11,17 @@ class AuthApiService
     /**
      * @throws \Exception
      */
-    public function register(array $data) : User
+    public function register(array $data) : array
     {
         try {
             DB::beginTransaction();
             $user = User::create($data);
-            $user->createToken('auth_token')->accessToken;
+            $token = $user->createToken('auth_token')->accessToken;
             DB::commit();
-            return $user;
+            return [
+                'token' => $token,
+                'user' => $user,
+            ];
         } catch (\Exception $e) {
             DB::rollBack();
             throw new \Exception($e->getMessage());
