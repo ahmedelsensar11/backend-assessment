@@ -3,6 +3,7 @@
 namespace App\Services\User\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AuthApiService
@@ -26,5 +27,22 @@ class AuthApiService
             DB::rollBack();
             throw new \Exception($e->getMessage());
         }
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function login(array $data): array
+    {
+
+        if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
+            $user = User::where('email', $data['email'])->first();
+            $token = $user->createToken('auth_token')->accessToken;
+            return [
+                'user' => $user,
+                'token' => $token
+            ];
+        }
+        throw new \Exception('Invalid credentials');
     }
 }
