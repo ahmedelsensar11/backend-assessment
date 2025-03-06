@@ -2,6 +2,8 @@
 
 namespace App\Shared\src\Services;
 
+use Illuminate\Database\Eloquent\Model;
+
 interface ServiceInterface
 {
 
@@ -11,7 +13,7 @@ interface ServiceInterface
 
     public function create(array $data);
 
-    public function update(array $data):bool;
+    public function update(Model $model, array $data);
 
-    public function delete():void;
+    public function delete(Model $model);
 }

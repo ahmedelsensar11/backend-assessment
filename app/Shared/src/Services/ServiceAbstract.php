@@ -35,13 +35,16 @@ abstract class ServiceAbstract implements ServiceInterface
         return $this->model->create($data);
     }
 
-    public function update(array $data): bool
+    public function update(Model $model, array $data): bool
     {
-        return $this->model->update($data);
+        return $model->update($data);
     }
 
-    public function delete(): void
+    /**
+     * @throws \Throwable
+     */
+    public function delete(Model $model): void
     {
-        $this->model->delete();
+        $this->model->deleteOrFail();
     }
 }
