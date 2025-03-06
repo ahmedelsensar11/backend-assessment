@@ -8,6 +8,7 @@ use App\Http\Resources\UserResource;
 use App\Services\User\Auth\AuthApiService;
 use Illuminate\Http\JsonResponse;
 use App\Helpers\ApiResponse;
+use Illuminate\Http\Request;
 
 class AuthController
 {
@@ -29,6 +30,19 @@ class AuthController
     }
 
     public function login(LoginRequest $request): JsonResponse
+    {
+        try {
+            $result = $this->authApiService->login($request->validated());
+            return ApiResponse::data([
+                'user' => new UserResource($result['user']),
+                'token' => $result['token'],
+            ]);
+        } catch (\Exception $e) {
+            return ApiResponse::errors($e->getMessage());
+        }
+    }
+
+    public function logout(Request $request): JsonResponse
     {
         try {
             $result = $this->authApiService->login($request->validated());
