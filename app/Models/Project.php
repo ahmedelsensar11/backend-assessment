@@ -31,6 +31,15 @@ class Project extends BaseModel
         return $this->belongsToMany(User::class);
     }
 
+
+    /**
+     * The attributes that belong to the project.
+     */
+    public function projectAttributes(): BelongsToMany
+    {
+        return $this->belongsToMany(ProjectAttribute::class, 'project_attribute_values', 'entity_id','attribute_id');
+    }
+
     public function getAllowedFilters(): array  //for applying filters
     {
         return [
