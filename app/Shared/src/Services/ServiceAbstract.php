@@ -20,7 +20,7 @@ abstract class ServiceAbstract implements ServiceInterface
             ->orderByDesc('id')
             ->with($with)
             ->where($filter)
-            ->allowedFilters($this->model->getAllowedFilters() ?? ['id', 'name'])
+            ->allowedFilters($this->model->getAllowedFilters())
             ->paginate(request()->limit ?? 10)
             ->appends(request()->query());
     }
