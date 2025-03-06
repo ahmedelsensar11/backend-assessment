@@ -6,11 +6,11 @@ use App\Http\Requests\Api\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Services\User\Auth\AuthApiService;
 use Illuminate\Http\JsonResponse;
-use Khaleds\Shared\Helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 
 class AuthController
 {
-    public function __construct(private AuthApiService $authApiService)
+    public function __construct(protected AuthApiService $authApiService)
     {
     }
 

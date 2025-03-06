@@ -1,9 +1,8 @@
 <?php
 
-namespace Khaleds\Shared\Helpers;
+namespace App\Helpers;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\App;
 
 class ApiResponse
 {
