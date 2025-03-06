@@ -40,12 +40,11 @@ abstract class ControllerAbstract
 
     public function update(Request $request, $id): \Illuminate\Http\JsonResponse
     {
-
         $request = app($this->updateRequestClass);
 
         $model = $this->service->findOrFail($id, $this->filter);
 
-        $this->service->update($request->validated(), $model);
+        $this->service->update($model, $request->validated());
 
         return ApiResponse::data($this->jsonResourceClass::make($model->refresh()),ApiResponse::UPDATED);
     }

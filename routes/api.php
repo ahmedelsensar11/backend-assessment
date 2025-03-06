@@ -13,4 +13,4 @@ Route::middleware('auth:api')->group(function () {
 });
 
 //users
-Route::apiResource('users', UserController::class)->only(['index', 'show', 'destroy']);
+Route::apiResource('users', UserController::class);
