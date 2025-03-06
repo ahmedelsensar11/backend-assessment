@@ -1,11 +1,11 @@
 <?php
 
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Project;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUserRequest extends FormRequest
+class UpdateProjectRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,10 +15,8 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            "first_name" => "sometimes|string|max:255",
-            "last_name" => "sometimes|string|max:255",
-            'email' => "sometimes|email|max:255|unique:users,email",
-            'password' => 'required|string|min:6|max:50|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,50}$/',
+            "name" => "sometimes|string|max:255",
+            "status" => "sometimes|string|max:255",
         ];
     }
 

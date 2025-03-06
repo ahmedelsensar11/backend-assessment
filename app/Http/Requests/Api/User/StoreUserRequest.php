@@ -1,11 +1,11 @@
 <?php
 
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,10 +15,10 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            "first_name" => "required|max:255",
-            "last_name" => "required|max:255",
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => 'required|string|min:6|max:50|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,50}$/',
+            "first_name" => "required|string|max:255",
+            "last_name" => "required|string|max:255",
+            'email' => "required|email|max:255|unique:users,email",
+            'password' => 'required|string|min:6|max:50|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,50}$/',
         ];
     }
 

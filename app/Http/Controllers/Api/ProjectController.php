@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\Api\StoreUserRequest;
-use App\Http\Requests\Api\UpdateUserRequest;
+use App\Http\Requests\Api\User\StoreUserRequest;
+use App\Http\Requests\Api\User\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Services\Project\ProjectService;
-use App\Services\User\UserService;
 use App\Shared\src\Http\Controllers\Api\ControllerAbstract;
 
 class ProjectController extends ControllerAbstract

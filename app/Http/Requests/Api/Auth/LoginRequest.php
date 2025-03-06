@@ -1,11 +1,11 @@
 <?php
 
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,9 +15,8 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            "first_name" => "sometimes|string|max:255",
-            "last_name" => "sometimes|string|max:255",
-            'email' => "sometimes|email|max:255|unique:users,email",
+            'email' => 'required||email',
+            'password' => 'required|string|min:8|max:50|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,50}$/',
         ];
     }
 
