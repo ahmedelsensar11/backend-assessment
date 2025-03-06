@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\Api\Project\StoreProjectRequest;
-use App\Http\Requests\Api\Project\UpdateProjectRequest;
-use App\Http\Resources\ProjectResource;
+use App\Http\Requests\Api\Project\StoreProjectAttributeRequest;
+use App\Http\Requests\Api\Project\UpdateProjectAttributeRequest;
+use App\Http\Resources\ProjectAttributeResource;
 use App\Services\Project\ProjectAttributeService;
 use App\Shared\src\Http\Controllers\Api\ControllerAbstract;
 
 class ProjectAttributeController extends ControllerAbstract
 {
-    protected string $jsonResourceClass = ProjectResource::class;
-    protected string $storeRequestClass = StoreProjectRequest::class;
-    protected string $updateRequestClass = UpdateProjectRequest::class;
+    protected string $jsonResourceClass = ProjectAttributeResource::class;
+    protected string $storeRequestClass = StoreProjectAttributeRequest::class;
+    protected string $updateRequestClass = UpdateProjectAttributeRequest::class;
 
     public function __construct(ProjectAttributeService $service)
     {

@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('project_attributes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('name')->unique();
             $table->enum('type', \App\Enums\AttributeTypeEnum::values());
             $table->timestamps();
         });

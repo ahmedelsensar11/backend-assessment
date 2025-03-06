@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ProjectAttributeController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\TimesheetController;
 use App\Http\Controllers\Api\UserController;
@@ -17,3 +18,4 @@ Route::middleware('auth:api')->group(function () {
 Route::apiResource('users', UserController::class);
 Route::apiResource('projects', ProjectController::class);
 Route::apiResource('timesheets', TimesheetController::class);
+Route::apiResource('project-attributes', ProjectAttributeController::class);
