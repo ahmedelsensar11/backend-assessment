@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Helpers\ApiResponse;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\RegisterRequest;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\ProjectResource;
 use App\Services\Auth\AuthApiService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class AuthController
         try {
             $result = $this->authApiService->register($request->validated());
             return ApiResponse::data([
-                'user' => new UserResource($result['user']),
+                'user' => new ProjectResource($result['user']),
                 'token' => $result['token'],
             ]);
         } catch (\Exception $e) {
@@ -34,7 +34,7 @@ class AuthController
         try {
             $result = $this->authApiService->login($request->validated());
             return ApiResponse::data([
-                'user' => new UserResource($result['user']),
+                'user' => new ProjectResource($result['user']),
                 'token' => $result['token'],
             ]);
         } catch (\Exception $e) {
@@ -47,7 +47,7 @@ class AuthController
         try {
             $result = $this->authApiService->login($request->validated());
             return ApiResponse::data([
-                'user' => new UserResource($result['user']),
+                'user' => new ProjectResource($result['user']),
                 'token' => $result['token'],
             ]);
         } catch (\Exception $e) {
