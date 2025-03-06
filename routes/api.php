@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\TimesheetController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +17,4 @@ Route::middleware('auth:api')->group(function () {
 //users
 Route::apiResource('users', UserController::class);
 Route::apiResource('projects', ProjectController::class);
+Route::apiResource('timesheets', TimesheetController::class);
