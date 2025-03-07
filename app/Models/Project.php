@@ -4,13 +4,14 @@ namespace App\Models;
 
 use App\Enums\StatusEnum;
 use App\Shared\src\Models\BaseModel;
+use App\Traits\HasAttributeFilters;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\QueryBuilder\AllowedFilter;
 
 class Project extends BaseModel
 {
-    use  HasFactory;
+    use  HasFactory, HasAttributeFilters;
     protected $fillable = [
         'name',
         'status',
@@ -51,27 +52,17 @@ class Project extends BaseModel
     public function getAllowedFilters(): array  //for applying filters
     {
         $baseFilters = [
-                AllowedFilter::exact('name'),
-                AllowedFilter::exact('status'),
-                // Search
-                AllowedFilter::callback('search', function ($query, $value) {
-                    $query->where(function ($query) use ($value) {
-                        $value = strtolower($value); //to make it non-sensitive
-                        $query->whereRaw('LOWER(name) LIKE ?', ["%{$value}%"]);
-                    });
-                }),
-            ];
-
-            // Get all project attributes
-            $attributeFilters = ProjectAttribute::get()->map(function ($attribute) {
-                return AllowedFilter::callback("{$attribute->name}", function ($query, $value) use ($attribute) {
-                    $query->whereHas('attributeValues', function ($query) use ($attribute, $value) {
-                        $query->where('attribute_id', $attribute->id)
-                            ->where('value', 'like', "%{$value}%");
-                    });
+            AllowedFilter::exact('name'),
+            AllowedFilter::exact('status'),
+            // Search
+            AllowedFilter::callback('search', function ($query, $value) {
+                $query->where(function ($query) use ($value) {
+                    $value = strtolower($value); //to make it non-sensitive
+                    $query->whereRaw('LOWER(name) LIKE ?', ["%{$value}%"]);
                 });
-            })->toArray();
+            }),
+        ];
 
-        return array_merge($baseFilters, $attributeFilters);
+        return array_merge($baseFilters, $this->getAttributeFilters());
     }
 }
