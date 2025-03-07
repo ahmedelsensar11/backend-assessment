@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Shared\src\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\QueryBuilder\AllowedFilter;
+
 class UserProject extends BaseModel
 {
     use HasFactory;
@@ -28,4 +30,11 @@ class UserProject extends BaseModel
     }
 
 
+    public function getAllowedFilters(): array  //for applying filters
+    {
+        return [
+            AllowedFilter::exact('user.email'),
+            AllowedFilter::exact('project.name'),
+        ];
+    }
 }

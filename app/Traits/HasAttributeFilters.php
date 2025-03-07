@@ -5,6 +5,9 @@ use App\Enums\AttributeTypeEnum;
 use Spatie\QueryBuilder\AllowedFilter;
 use App\Models\ProjectAttribute;
 
+/*
+ * handle dynamic filtration for EAV modeling
+ * */
 trait HasAttributeFilters
 {
     protected function getAttributeFilters(): array
