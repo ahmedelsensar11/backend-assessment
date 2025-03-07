@@ -14,7 +14,7 @@ The Project is built using the latest version Laravel 12 with Passport for authe
 ### Installation
 - #### Clone the repository:
   - git clone https://github.com/ahmedelsensar11/backend-assessment
-  - cd project-name
+  - cd backend-assessment
 
 - #### Install dependencies using Composer:
   - composer install

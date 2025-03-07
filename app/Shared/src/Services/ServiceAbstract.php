@@ -45,6 +45,6 @@ abstract class ServiceAbstract implements ServiceInterface
      */
     public function delete(Model $model): void
     {
-        $this->model->deleteOrFail();
+        $model->deleteOrFail();
     }
 }
