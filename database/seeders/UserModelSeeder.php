@@ -12,12 +12,18 @@ class UserModelSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $user = User::where(['email' => 'test@astudio.com'])->first();
+        if (!$user) {
+            // for test credentials
+            User::factory()->create([
+                'first_name' => 'Test',
+                'last_name' => 'User',
+                'email' => 'test@astudio.com',
+                'password' => bcrypt('Test@123'),
+            ]);
+        }
 
-        User::factory()->create([
-            'first_name' => 'Test',
-            'last_name' => 'User',
-            'email' => 'test@example.com',
-        ]);
+        //other users data
+        User::factory(10)->create();
     }
 }
