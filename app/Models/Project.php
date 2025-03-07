@@ -42,19 +42,36 @@ class Project extends BaseModel
             ->withTimestamps();
     }
 
+    public function attributeValues()
+    {
+        return $this->hasMany(ProjectAttributeValue::class, 'entity_id');
+    }
+
+
     public function getAllowedFilters(): array  //for applying filters
     {
-        return [
-            AllowedFilter::exact('name'),
-            AllowedFilter::exact('status'),
+        $baseFilters = [
+                AllowedFilter::exact('name'),
+                AllowedFilter::exact('status'),
+                // Search
+                AllowedFilter::callback('search', function ($query, $value) {
+                    $query->where(function ($query) use ($value) {
+                        $value = strtolower($value); //to make it non-sensitive
+                        $query->whereRaw('LOWER(name) LIKE ?', ["%{$value}%"]);
+                    });
+                }),
+            ];
 
-            // Search
-            AllowedFilter::callback('search', function ($query, $value) {
-                $query->where(function ($query) use ($value) {
-                    $value = strtolower($value); //to make it non-sensitive
-                    $query->whereRaw('LOWER(name) LIKE ?', ["%{$value}%"]);
+            // Get all project attributes
+            $attributeFilters = ProjectAttribute::get()->map(function ($attribute) {
+                return AllowedFilter::callback("{$attribute->name}", function ($query, $value) use ($attribute) {
+                    $query->whereHas('attributeValues', function ($query) use ($attribute, $value) {
+                        $query->where('attribute_id', $attribute->id)
+                            ->where('value', 'like', "%{$value}%");
+                    });
                 });
-            }),
-        ];
+            })->toArray();
+
+        return array_merge($baseFilters, $attributeFilters);
     }
 }
