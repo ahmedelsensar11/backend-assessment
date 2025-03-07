@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Helpers\ApiResponse;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\RegisterRequest;
-use App\Http\Resources\ProjectResource;
+use App\Http\Resources\UserResource;
 use App\Services\Auth\AuthApiService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class AuthController
         try {
             $result = $this->authApiService->register($request->validated());
             return ApiResponse::data([
-                'user' => new ProjectResource($result['user']),
+                'user' => new UserResource($result['user']),
                 'token' => $result['token'],
             ]);
         } catch (\Exception $e) {
@@ -34,7 +34,7 @@ class AuthController
         try {
             $result = $this->authApiService->login($request->validated());
             return ApiResponse::data([
-                'user' => new ProjectResource($result['user']),
+                'user' => new UserResource($result['user']),
                 'token' => $result['token'],
             ]);
         } catch (\Exception $e) {
@@ -45,11 +45,8 @@ class AuthController
     public function logout(Request $request): JsonResponse
     {
         try {
-            $result = $this->authApiService->login($request->validated());
-            return ApiResponse::data([
-                'user' => new ProjectResource($result['user']),
-                'token' => $result['token'],
-            ]);
+            $this->authApiService->logout($request);
+            return ApiResponse::success('Logged out');
         } catch (\Exception $e) {
             return ApiResponse::errors($e->getMessage());
         }

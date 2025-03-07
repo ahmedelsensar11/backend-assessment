@@ -22,6 +22,13 @@ class RegisterRequest extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'password.regex' => 'Password must contains Uppercase and Lowercase letters, numbers and special characters.',
+        ];
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *

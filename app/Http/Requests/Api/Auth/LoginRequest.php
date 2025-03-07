@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Http\Requests\Api\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -16,7 +14,14 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => 'required||email',
-            'password' => 'required|string|min:8|max:50|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,50}$/',
+            'password' => 'required|string|min:8|max:50|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,50}$/',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'password.regex' => 'Password must contains Uppercase and Lowercase letters, numbers and special characters.',
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace App\Services\Auth;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -44,5 +45,13 @@ class AuthApiService
             ];
         }
         throw new \Exception('Invalid credentials');
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function logout(Request $request): void
+    {
+        $request->user()->token()->revoke();
     }
 }
