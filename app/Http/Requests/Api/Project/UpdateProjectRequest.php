@@ -17,6 +17,9 @@ class UpdateProjectRequest extends FormRequest
         return [
             "name" => "sometimes|string|max:255",
             "status" => "sometimes|string|max:255",
+            'attributes' => 'nullable|array',
+            'attributes.*.attribute_id' => 'required|exists:project_attributes,id',
+            'attributes.*.value' => 'required|string',
         ];
     }
 

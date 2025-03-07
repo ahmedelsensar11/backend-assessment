@@ -37,7 +37,9 @@ class Project extends BaseModel
      */
     public function projectAttributes(): BelongsToMany
     {
-        return $this->belongsToMany(ProjectAttribute::class, 'project_attribute_values', 'entity_id','attribute_id');
+        return $this->belongsToMany(ProjectAttribute::class, 'project_attribute_values','entity_id','attribute_id')
+            ->withPivot('value')
+            ->withTimestamps();
     }
 
     public function getAllowedFilters(): array  //for applying filters

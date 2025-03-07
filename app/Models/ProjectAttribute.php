@@ -17,6 +17,8 @@ class ProjectAttribute extends BaseModel
      */
     public function projects(): BelongsToMany
     {
-        return $this->belongsToMany(Project::class, 'project_attribute_values','attribute_id','entity_id');
+        return $this->belongsToMany(Project::class, 'project_attribute_values','attribute_id','entity_id')
+            ->withPivot('value')
+            ->withTimestamps();
     }
 }

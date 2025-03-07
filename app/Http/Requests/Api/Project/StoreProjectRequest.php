@@ -17,6 +17,9 @@ class StoreProjectRequest extends FormRequest
         return [
             "name" => "required|string|max:255",
             "status" => "sometimes|string|max:255",
+            'attributes' => 'sometimes|array',
+            'attributes.*.attribute_id' => 'required|exists:project_attributes,id',
+            'attributes.*.value' => 'required|string',
         ];
     }
 
