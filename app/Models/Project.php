@@ -7,6 +7,7 @@ use App\Shared\src\Models\BaseModel;
 use App\Traits\HasAttributeFilters;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\QueryBuilder\AllowedFilter;
 
 class Project extends BaseModel
@@ -43,7 +44,7 @@ class Project extends BaseModel
             ->withTimestamps();
     }
 
-    public function attributeValues()
+    public function attributeValues(): HasMany
     {
         return $this->hasMany(ProjectAttributeValue::class, 'entity_id');
     }
@@ -51,10 +52,10 @@ class Project extends BaseModel
 
     public function getAllowedFilters(): array  //for applying filters
     {
-        $baseFilters = [
+        $regularFilters = [
             AllowedFilter::exact('name'),
             AllowedFilter::exact('status'),
-            // Search
+            // basic Search for project's name
             AllowedFilter::callback('search', function ($query, $value) {
                 $query->where(function ($query) use ($value) {
                     $value = strtolower($value); //to make it non-sensitive
@@ -63,6 +64,6 @@ class Project extends BaseModel
             }),
         ];
 
-        return array_merge($baseFilters, $this->getAttributeFilters());
+        return array_merge($regularFilters, $this->getAttributeFilters());
     }
 }
