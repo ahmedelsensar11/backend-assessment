@@ -13,6 +13,9 @@ class ProjectAttributeResource extends JsonResource
             "id" => $this->id,
             "name" => $this->name,
             "type" => $this->type,
+            "value" => $this->whenPivotLoaded('project_attribute_values', function () {
+                return $this->pivot->value;
+            })
         ];
     }
 }

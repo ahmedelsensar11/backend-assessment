@@ -21,7 +21,7 @@ class ProjectService extends ServiceAbstract
         try {
             DB::beginTransaction();
             $project = $this->model->create($data);
-            if (isset($data['attributes'])) {
+            if (isset($data['attributes'])) { //when you need to store attributes
                 $project->projectAttributes()->sync($data['attributes']);
             }
             DB::commit();
