@@ -24,6 +24,6 @@ class UserModelSeeder extends Seeder
         }
 
         //other users data
-        User::factory(10)->create();
+        User::factory(3)->create();
     }
 }

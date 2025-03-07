@@ -32,7 +32,20 @@ class Timesheet extends BaseModel
     {
         return [
             AllowedFilter::exact('task_name'),
-            AllowedFilter::exact('date'),
+            AllowedFilter::exact('user.email'),
+            AllowedFilter::exact('project.name'),
+            AllowedFilter::callback('date', function ($query, $value) {
+                if (is_array($value)) {
+                    if (isset($value['from'])) {
+                        $query->whereDate('date', '>=', $value['from']);
+                    }
+                    if (isset($value['to'])) {
+                        $query->whereDate('date', '<=', $value['to']);
+                    }
+                } else {
+                    $query->whereDate('date', $value);
+                }
+            }),
         ];
     }
 }

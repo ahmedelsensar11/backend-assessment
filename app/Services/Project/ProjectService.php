@@ -20,7 +20,7 @@ class ProjectService extends ServiceAbstract
     {
         try {
             DB::beginTransaction();
-            $project = $this->model->create($data);
+            $project = $this->model->create(['name' => $data['name'], 'status' => $data['status']]);
             if (isset($data['attributes'])) { //when you need to store attributes
                 $project->projectAttributes()->sync($data['attributes']);
             }
@@ -37,7 +37,7 @@ class ProjectService extends ServiceAbstract
     {
         try {
             DB::beginTransaction();
-            $model->update($data);
+            $model->update(['name' => $data['name'], 'status' => $data['status']]);
             if (isset($data['attributes'])) { //check if need to update attributes
                 $model->projectAttributes()->sync($data['attributes']);
             }
