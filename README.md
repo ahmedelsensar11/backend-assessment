@@ -44,13 +44,13 @@ The Project is built using the latest version Laravel 12 with Passport for authe
 
 
 ## Technical Notes
-- This project utilizes the [Union architecture](https://medium.com/expedia-group-tech/onion-architecture-deed8a554423) to expose API CRUD endpoints. 
-- The Union architecture is employed as a pragmatic and streamlined approach, favoring simplicity over abstraction layers.
+- This project utilizes the [Onion architecture](https://medium.com/expedia-group-tech/onion-architecture-deed8a554423) to expose API CRUD endpoints. 
+- The Onion architecture is employed as a pragmatic and streamlined approach, favoring simplicity over abstraction layers.
 - In this implementation: No repository layer is included, Data access and business logic are directly managed within the service layer or controllers. This design minimizes the overhead of managing an additional abstraction and allows for faster, more direct implementation of CRUD operations.
-- I am using spatie query laravel to allow regular filtering and HasWithAttributeFilters trait to manage dynamic EAV
+- I am using spatie query builder to allow regular filtering and HasAttributeFilters trait to manage dynamic EAV
 - each model has own filters that can filter on it
 - the project model cruds allowing regular & dynamic filters 
-  - example:`https://backend-assessment.test/api/projects?filter[name]=new website&filter[search]=project&filter[department]=IT&filter[start_date][from]=2025-03-16&filter[start_date][to]=2025-03-25&filter[type]=offline`
+  - example:`https://backend-assessment.test/api/projects?filter[name]=new website&filter[search]=project_name&filter[department]=IT&filter[start_date][from]=2025-03-16&filter[start_date][to]=2025-03-25&filter[type]=offline`
 
 
 ## Test Credentials
